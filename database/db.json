@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "email": "phuvan@gmail.com",
+      "password": "123",
+      "id": "1",
+      "img": "https://image-us.24h.com.vn/upload/2-2023/images/2023-06-06/kim5_1-1686027959-673-width740height480.jpg",
+      "name": "phuvan",
+      "description": "Mô tả 1: Đây là mô tả cho phần tử số 1"
+    },
+    {
+      "email": "hoanganh@gmail.com",
+      "password": "123",
+      "img": "",
+      "name": "",
+      "description": "",
+      "note": [],
+      "id": "FlH3pup"
+    },
+    {
+      "email": "vanphu123@gmail.com",
+      "password": "123",
+      "img": "",
+      "name": "",
+      "description": "",
+      "note": [],
+      "id": "gvdklh0"
+    }
+  ],
+  "note": [
+    {
+      "id": "1",
+      "title": "go to marketssdsd"
+    },
+    {
+      "id": "2",
+      "title": "Meeting with client",
+      "type": "short_term",
+      "priority": "medium"
+    },
+    {
+      "id": "3",
+      "title": "Finish project report",
+      "type": "short_term",
+      "priority": "high"
+    },
+    {
+      "id": "4",
+      "title": "clean the house",
+      "type": "wqe",
+      "priority": "high"
+    },
+    {
+      "id": "5",
+      "title": "ewqe",
+      "type": "wqeqwe",
+      "priority": "low"
+    },
+    {
+      "id": "6",
+      "title": "we",
+      "type": "sdas",
+      "priority": "low"
+    }
+  ]
+}

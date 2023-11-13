@@ -12,33 +12,44 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Screen2({ route, navigation }) {
-  const notes = route.params;
-  //lưu note bên screen3
-  const [note, setNotes] = React.useState(route.params?.note || []);
-  const gotoEditScreen = (item) => {
-    navigation.navigate("screen3", {note: item});
+  const [data, setData] = React.useState([]);
+ 
+ 
+  React.useEffect(()=>{
+    fetch("http://localhost:3000/note")
+    .then((x)=> x.json())
+    .then((data) => {setData(data)})
+  }, [])
+
+
+ 
+
+  //xóa 1 note
+  const deleteNote = (id) => {
+    fetch(`http://localhost:3000/note/${id}`, {
+      method: 'DELETE',
+    })
+    .then(() => {
+      setData(data.filter(note => note.id !== id));
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   };
-  const updateNotes = (newNote) => {
-    setNotes((prevNotes) => prevNotes.map(n => (n.id === newNote.id ? newNote : n)));
-};
-
-const deleteNote = (noteId) => {
-    // Filter out the note with the specified id
-    const updatedNotes = note.filter((item) => item.id !== noteId);
-    // Update the state with the new array
-    setNotes(updatedNotes);
-};
-
-
-React.useEffect(() => {
-    if (route.params?.note) {
-        updateNotes(route.params.note);
-    }
-}, [route.params?.note]);
-
-  
+   //làm mới khi có sự thay đổi từ trang khác lên api xong load về
+  useFocusEffect(
+    React.useCallback(() => {
+      // Fetch dữ liệu mới mỗi khi màn hình được tập trung
+      fetch("http://localhost:3000/note")
+        .then((response) => response.json())
+        .then((json) => {
+          setData(json);
+        });
+    }, [])
+  );
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, alignItems: "center" }}>
@@ -62,22 +73,22 @@ React.useEffect(() => {
       <View style={{ flex: 8 }}>
         <ScrollView nestedScrollEnabled>
           <FlatList
-            data={note}
+            data={data}
             renderItem={({ item }) => {
               let backgroundColor;
-  switch (item.priority) {
-    case 'low':
-      backgroundColor = 'red';
-      break;
-    case 'medium':
-      backgroundColor = 'orange';
-      break;
-    case 'high':
-      backgroundColor = '#00cc00';
-      break;
-    default:
-      backgroundColor = '#6aebf9'; // default color in case priority is not set
-  }
+              switch (item.priority) {
+                case "low":
+                  backgroundColor = "red";
+                  break;
+                case "medium":
+                  backgroundColor = "orange";
+                  break;
+                case "high":
+                  backgroundColor = "#00cc00";
+                  break;
+                default:
+                  backgroundColor = "#6aebf9"; // default color in case priority is not set
+              }
               return (
                 <View
                   key={item.id}
@@ -99,15 +110,18 @@ React.useEffect(() => {
                     <Text>{item.title}</Text>
                   </View>
                   <View style={{ flexDirection: "row" }}>
-                    <TouchableOpacity onPress={() => gotoEditScreen(item)}>
-                        <Feather name="edit" size={30} color="#333" />
+                    <TouchableOpacity
+                       onPress={() => {
+            navigation.navigate("screen3", { id: item.id, title: item.title});
+          }}
+                     >
+                      <Feather name="edit" size={30} color="#333" />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => deleteNote (item.id)}
+                       onPress={() => deleteNote(item.id)}
                     >
-                        <MaterialIcons name="delete" size={30} color="#333" />
+                      <MaterialIcons name="delete" size={30} color="#333" />
                     </TouchableOpacity>
-    
                   </View>
                 </View>
               );
@@ -116,17 +130,14 @@ React.useEffect(() => {
         </ScrollView>
       </View>
       <View style={{ flex: 2, alignItems: "center", justifyContent: "center" }}>
-      <TouchableOpacity
-        onPress={()=>{
-          navigation.navigate("screen4", note)
-        }}
-      >
-      <AntDesign name="pluscircle" size={70} color="aqua" style={{}} />
-
-      </TouchableOpacity>
-       
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("screen4", data);
+          }}
+        >
+          <AntDesign name="pluscircle" size={70} color="aqua" style={{}} />
+        </TouchableOpacity>
       </View>
-   
     </View>
   );
 }

@@ -4,6 +4,7 @@ import screen1 from "./screens/Screen1"
 import screen2 from "./screens/Screen2"
 import screen3 from "./screens/Screen3"
 import screen4 from "./screens/Screen4"
+import screensignup from "./screens/Signup"
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Stack.Screen name="screen2" component={screen2} />
         <Stack.Screen name="screen3" component={screen3} />
         <Stack.Screen name="screen4" component={screen4} />
+        <Stack.Screen name="screensignup" component={screensignup} />
       </Stack.Navigator>
     </NavigationContainer>
   );

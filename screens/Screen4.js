@@ -7,24 +7,25 @@ export default function Screen4({ route, navigation }) {
     console.log(note);
     const [noteId, setNoteId] = useState("");
     const [noteTitle, setNoteTitle] = useState("");
+    const [noteType, setNoteType] = useState("");
+    const [notePriority, setNotePriority] = useState("");
 
     const addNote = async () => {
-        const newNote = { id: noteId, title: noteTitle, type: "short_term", priority: "low" };
-        note.push(newNote);
-        fetch(`https://65095ffef6553137159b4db8.mockapi.io/todo/notes/${note.id}`, {
-            method: 'PUT',
-            cache: 'no-cache',
-            body: JSON.stringify(note),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            }),
-        })
-        .then((x) => x.json())
-        .then((data) => console.log(data))
-        navigation.navigate("screen2", note);
-        console.log(note);
-        console.log("note mới them" +newNote);
-
+      const newNote = { id: noteId, title: noteTitle, type: noteType, priority: notePriority };
+    
+      fetch(`http://localhost:3000/note`, {
+        method: 'POST',
+        cache: 'no-cache',
+        body: JSON.stringify(newNote),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .then((x) => x.json())
+      .then((data) => {
+        console.log(data);
+        navigation.navigate("screen2", {note: data});
+      });
     };
 
   return (
@@ -42,11 +43,13 @@ export default function Screen4({ route, navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Note Type"
+        onChangeText={setNoteType}
      
       />
       <TextInput
         style={styles.input}
         placeholder="Note Priority"
+        onChangeText={setNotePriority}
       
       />
       <TouchableOpacity onPress={addNote} style={styles.button}>

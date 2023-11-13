@@ -2,24 +2,26 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default function Screen3({ route, navigation }) {
-    const { note } = route.params;
+    const note = route.params;
+    console.log(note);
     const [editedTitle, setEditedTitle] = useState(note.title);
 
     const saveChanges = () => {
-        fetch(`https://65095ffef6553137159b4db8.mockapi.io/todo/notes/${note.id}`, {
+        fetch(`http://localhost:3000/note/${note.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                id: note.id,
                 title: editedTitle,
+                type: note.type,
+                priority: note.priority
             }),
         })
-        .then(response => response.json())
         .then(data => {
-            // Change this line
-            // navigation.navigate('screen2', { note });
-            navigation.navigate('screen2', { note: { ...note, title: editedTitle } });
+            // Chuyển về màn hình trước đó và truyền lại dữ liệu đã cập nhật
+            navigation.navigate('screen2', { note: data });
         })
         .catch(error => {
             console.error('Error:', error);
