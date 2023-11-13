@@ -25,42 +25,44 @@
       "description": "",
       "note": [],
       "id": "gvdklh0"
+    },
+    {
+      "email": "hai@gmail.com",
+      "password": "123",
+      "img": "",
+      "name": "",
+      "description": "",
+      "note": [],
+      "id": "7-5dWww"
+    },
+    {
+      "email": "hainguyen@gmail.com",
+      "password": "123",
+      "img": "",
+      "name": "",
+      "description": "",
+      "note": [],
+      "id": "I5w7epg"
     }
   ],
   "note": [
     {
       "id": "1",
-      "title": "go to marketssdsd"
+      "title": "go to market",
+      "type": "short_term",
+      "priority": "low"
     },
     {
       "id": "2",
       "title": "Meeting with client",
       "type": "short_term",
-      "priority": "medium"
+      "priority": "high"
     },
     {
       "id": "3",
       "title": "Finish project report",
       "type": "short_term",
-      "priority": "high"
-    },
-    {
-      "id": "4",
-      "title": "clean the house",
-      "type": "wqe",
-      "priority": "high"
-    },
-    {
-      "id": "5",
-      "title": "ewqe",
-      "type": "wqeqwe",
-      "priority": "low"
-    },
-    {
-      "id": "6",
-      "title": "we",
-      "type": "sdas",
-      "priority": "low"
+      "priority": "medium"
     }
   ]
 }

@@ -5,6 +5,8 @@ export default function Screen3({ route, navigation }) {
     const note = route.params;
     console.log(note);
     const [editedTitle, setEditedTitle] = useState(note.title);
+    const [editedType, setEditedType] = useState(note.type);
+    const [editedPriority, setEditedPriority] = useState(note.priority);
 
     const saveChanges = () => {
         fetch(`http://localhost:3000/note/${note.id}`, {
@@ -15,8 +17,8 @@ export default function Screen3({ route, navigation }) {
             body: JSON.stringify({
                 id: note.id,
                 title: editedTitle,
-                type: note.type,
-                priority: note.priority
+                type: editedType,
+                priority: editedPriority
             }),
         })
         .then(data => {
@@ -32,8 +34,19 @@ export default function Screen3({ route, navigation }) {
         <View style={styles.container}>
             <Text style={styles.headerText}>Editing note ID: {note.id}</Text>
             <TextInput
+                placeholder='Title'
                 value={editedTitle}
                 onChangeText={setEditedTitle}
+                style={styles.input}
+            />  <TextInput
+            placeholder='type'
+                value={editedType}
+                onChangeText={setEditedType}
+                style={styles.input}
+            />  <TextInput
+            placeholder='priority'
+                value={editedPriority}
+                onChangeText={setEditedPriority}
                 style={styles.input}
             />
             <TouchableOpacity onPress={saveChanges} style={styles.button}>

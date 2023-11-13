@@ -112,7 +112,7 @@ export default function Screen2({ route, navigation }) {
                   <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity
                        onPress={() => {
-            navigation.navigate("screen3", { id: item.id, title: item.title});
+            navigation.navigate("screen3", { id: item.id, title: item.title, type: item.type, priority: item.priority});
           }}
                      >
                       <Feather name="edit" size={30} color="#333" />
